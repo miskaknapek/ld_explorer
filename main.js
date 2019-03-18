@@ -23,7 +23,71 @@ https://leafletjs.com/reference-1.4.0.html#canvas
 // ( it's a canvas-leaflet library, hopefully giving some hints )
 http://bl.ocks.org/Sumbera/11114288/ba15e1f5953dab372f0adb4a19ef06800113b6f2
 
+*/
 
+
+
+/* ==== STARTUP SEQUENCE - mental checklist : 
+
+	\ needed : 
+
+		- libraries
+			- leaflet 
+
+		- main main() 
+
+			- data holder()
+				
+				- specific data types[] : 
+
+					- data_object()
+
+			- windows holder()
+
+				- specific windows types[]:
+
+					- window()
+						- layers : 
+							- leaflet
+							- canvas 
+							- dom
+
+
+	/ startup sequence : 
+
+		- setup mainMain
+	
+			- get : input parameters 
+
+			- setup : data holder
+				- setup basic structures 
+
+			- setup : windows holder 
+
+			THEN : 
+
+				- windows holder : initialise relevant windows 
+					 - setup : visual objects
+					 - setup : listeners etc 
+					 - setup : visual drawing loops
+
+				THEN : Send draw : 
+
+					¿¿ Update map? ?? 
+
+					- window : 
+						- make sure the map is ok 
+						- fetch/check relevant data is present given time info 
+							- load data and parse it if necessary
+							- check relevant time inidices in data 
+							- setup data shapes 
+								- lat/long lookups 
+								- do existing shapes exist, 
+								- fetch relevant sensor id indicies for each data shape
+								- generate average data for shape? of all sensors?
+
+						- draw : 
+							- check whether the relevant data shape is drawing or not 
 */
 
 
@@ -128,6 +192,9 @@ class Various_objects_object {
 		console.log(">]>]> - instantiating  Various_objects_object  object ");
 	}
 
+	// LINK TO ROOT! 
+	link_to_root = false;	
+
 	// variables
 
 	one = 1;
@@ -161,8 +228,10 @@ various_objects.LD_data_holder = class {
 		console.log(">]>]> - instantiating  LD_data_holder object ");
 	}
 
+	// LINK TO ROOT! 
+	link_to_root = false;
 
-	// ----- objects  
+	// ----- OBJECTS  
 
 	// put tabular data in here 
 	tabular_LD_data_objects = [];
@@ -189,8 +258,10 @@ various_objects.Tabular_LD_data_object = class {
 		console.log(">]>]> - instantiating  Tabular_LD_data_object object ");
 	}
 
+	// LINK TO ROOT! 
+	link_to_root = false;
 
-	// ----- objects  
+	// ----- OBJECTS  
 
 	// put tabular data in here 
 
@@ -254,8 +325,11 @@ various_objects.Windows_holder = class {
 		console.log(">]>]> - instantiating  Windows_holder object ");
 	}
 
+	// LINK TO ROOT! 
+	link_to_root = false;
 
-	// ----- objects  
+
+	// ----- OBJECTS  
 
 	// the window instances go in here 
 	ld_map_windows = []
@@ -282,8 +356,11 @@ various_objects.LD_map_window = class {
 		console.log(">]>]> - instantiating  LD_map_window object ");
 	}
 
+	// LINK TO ROOT! 
+	link_to_root = false;
 
-	// ----- objects  
+
+	// ----- OBJECTS  
 
 	// -- data-shapes 
 
@@ -385,7 +462,10 @@ various_objects.LD_map_window__data_shape = class {
 		console.log(">]>]> - instantiating  LD_map_window__data_shape object ");
 	}
 
-	// ----- objects  
+	// LINK TO ROOT! 
+	link_to_root = false;
+
+	// ----- OBJECTS  
 
 	// for finding which 
 	array_of_relevant_sensors_for_this_shape__as_sensor_ids = []

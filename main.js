@@ -125,17 +125,21 @@ class MainMain {
 
 	}
 
+	// --------------------- root this!
+
+	mainMain_Root = this;
+
+
 	// --------------------- various objects reference
 
-	various_object_reference = [];
+	various_object_reference = false;	
 
 
 	// --------------------- objects 
 
-
 	dataholder = [];
 
-	window_holder = [];
+	windows_holder = [];
 
 
 	// --------------------- variables
@@ -145,22 +149,77 @@ class MainMain {
 
 
 
-	// ===================  methods 
+	// =====================  methods 
 
 
  	// - set up the relevant objects 
 
-	setup_objects = function(){
+	setup_LD_data_holder = function(){
 
 		console.log(">>>> setup_objects()");
 
-		this.dataholder = new window.LD_data_holder();
+		this.dataholder = new this.various_object_reference.LD_data_holder();
 
 	}
 
 
+	// - setup the windows holder 
 
-	// =-=-==-=-=-=-=-=-=- start me up 
+	setup_windows_holder = function( mainMain_Root_ ){
+
+		console.log(">>>> setup_windows_holder() ");
+
+		this.windows_holder = new this.various_object_reference.Windows_holder( mainMain_Root_ );
+	}
+
+
+	// =-=-==-=-=-=-=-=-=- initialise one LD map window 
+
+	setup__custom_LD_map_window_01 = function( mainMain_Root_ ){
+
+		console.log(">>>> setup__custom_LD_map_window_01() ");
+
+		mainMain_Root_.windows_holder.ld_map_windows.push( new this.various_object_reference.LD_map_window( mainMain_Root_, 0 ) );
+
+		// make it a bit easier to use 
+		this.curr_window = mainMain_Root_.windows_holder.ld_map_windows[0];
+
+		// test set something
+		// - OK - IT WORKS! 
+		this.curr_window.top_left_x = -1;
+
+		/* TO DO : 
+			
+			- set up coordinates … 
+				- the rest of the dom setup will rely on this a b i t
+	
+			- - DOM setup : 
+
+				- set up basic parent dom 
+
+				- set up leaflet area / dom 
+
+				- set up canvas area in div 
+
+				- set up interfacing divs … timelie, graph, menu 
+
+			- - Data setup 
+
+				- - figure out how to set up data shapes 
+
+					- figure out the coorindate multiples for the left / top -> bottom - right 
+
+					- generate the data shapes needed. 
+
+
+
+		*/
+	}
+
+
+
+	// =|=|==|=|==|=|==|=|==|=|= start me up 
+
 
 	// - - - - - - startup script
 
@@ -168,10 +227,14 @@ class MainMain {
 
 		console.log(">>> start_me_up() ");
 
-		// set up objects
-		this.setup_objects();
+		// set up the data holder
+		this.setup_LD_data_holder();
 
+		// set up the winodws holder 
+		this.setup_windows_holder( this.mainMain_Root );
 
+		// // // very custom setup 
+		this.setup__custom_LD_map_window_01( this.mainMain_Root );
 	}
 
 
@@ -320,13 +383,15 @@ various_objects.Tabular_LD_data_object = class {
 
 various_objects.Windows_holder = class {
 
-	constructor(){
+	constructor( mainMain_Root_ ){
 
 		console.log(">]>]> - instantiating  Windows_holder object ");
+
+		this.mainMain_Root_ = mainMain_Root_;
 	}
 
 	// LINK TO ROOT! 
-	link_to_root = false;
+	mainMain_Root_ = false;
 
 
 	// ----- OBJECTS  
@@ -351,14 +416,26 @@ various_objects.Windows_holder = class {
 
 various_objects.LD_map_window = class {
 
-	constructor(){ 
+	constructor( mainMain_Root_, LD_map_window_id ){ 
 
-		console.log(">]>]> - instantiating  LD_map_window object ");
+		console.log(">]>]> - instantiating  LD_map_window object - got ID# "+this.LD_map_window_id );
+		
+		//
+		this.mainMain_Root_ = mainMain_Root_;
+
+		// id 
+		this.LD_map_window_id = LD_map_window_id;
+
+		console.log("\t - got ID# "+this.LD_map_window_id );
 	}
 
 	// LINK TO ROOT! 
-	link_to_root = false;
+	mainMain_Root_ = false;
 
+
+	// ---- my number
+
+	LD_map_window_id = false;
 
 	// ----- OBJECTS  
 
@@ -508,7 +585,14 @@ various_objects.LD_map_window__data_shape = class {
 // // // // // // 
 
 
-// instantiate 
+// --- instantiate 
+
+// make main! 
+var mainMain = new MainMain()
+// attach various objects … 
+mainMain.various_object_reference = various_objects;
+// get things going 
+mainMain.start_me_up();
 
 // …the objects 
 // // various_objects = new Various_objects_object();
